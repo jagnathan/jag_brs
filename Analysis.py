@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import yaml
 import requests
 import pandas as pd
+import os
 
 
 class Analysis():
@@ -30,7 +31,8 @@ class Analysis():
 
     def load_data(self) -> None:
         print(self.config['figure_title'])
-        print(self.config['nasa_url'])
+        #print(self.config['nasa_url'])
+        #print(self.config['pokemon_url'])
 
         #'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY'
         response = requests.get(url=self.config['pokemon_url'],
@@ -51,7 +53,7 @@ class Analysis():
         return x['camera']['id'] 
 
     def getabbrev(self, x):
-        return x[0]+x[1] 
+        return x[0] 
 
     def compute_analysis(self) -> Any:
         #print(self.data)
@@ -60,7 +62,7 @@ class Analysis():
             #print(df_pokemon.columns)
             df_pokemon['name_code'] = df_pokemon['name'].apply(self.getabbrev)
             self.analyzed_data = df_pokemon.groupby('name_code').size().reset_index(name='count')
-            print(self.analyzed_data)
+            #print(self.analyzed_data)
             # df_photos['roverid'] = df_photos['rover'].apply(self.calc_roverid)
             # df_photos['cameraid'] = df_photos['rover'].apply(self.calc_cameraid)
             # df_photos.drop(columns=['rover', 'camera'], inplace=True)
@@ -68,7 +70,18 @@ class Analysis():
             return "Error: Could not parse data"
 
     def plot_data(self, save_path: Optional[str] = None) -> plt.Figure:
-        pass
+        fig, ax = plt.subplots()
+        ax.scatter(self.analyzed_data['name_code'], self.analyzed_data['count'], color=self.config['color'])
+        ax.set_xlabel('Pokemon Fans Starting Letter')
+        ax.set_ylabel('Count')
+        ax.set_title(self.config['figure_title'])
+        try:
+            if save_path is not None:
+                plt.savefig(save_path+self.config['figure_title']+'.png')
+        except:
+            plt.savefig('Analysis'+ self.config['figure_title']+'.png')
+        return fig
+    
 
     def notify_done(self, message: str) -> None:
         pass

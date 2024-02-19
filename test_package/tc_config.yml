@@ -2,4 +2,4 @@ color: 'green'
 figure_title: 'tc_figure_jag'
 nasa_url: 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY'
 pokemon_url: 'https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0'
-token: yitH3tw2ejhfyg9EE2aNSCkQ4ytYYcdcBJe1mYMn
+token: NA
