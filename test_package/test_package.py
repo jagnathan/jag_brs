@@ -1,5 +1,5 @@
-!pip install git+https://github.com/user/yourteamrepo
-from yourteamrepo import Analysis
+#!pip install git+https://github.com/user/yourteamrepo
+from jag_brs import Analysis
 
 analysis_obj = Analysis('tc_config.yml')
 analysis_obj.load_data()
