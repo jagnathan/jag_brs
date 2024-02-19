@@ -9,4 +9,6 @@ analysis_obj.load_data()
 analysis_output = analysis_obj.compute_analysis()
 #print(analysis_output)
 
-#analysis_figure = analysis_obj.plot_data()
+analysis_figure = analysis_obj.plot_data()
+
+analysis_obj.notify_done('Ready for review!')

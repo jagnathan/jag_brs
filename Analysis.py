@@ -4,11 +4,15 @@ import yaml
 import requests
 import pandas as pd
 import os
+import subprocess
+
 
 
 class Analysis():
+    '''A class to perform analysis on data from a specified URL and generate a plot of the results.'''
 
     def __init__(self, analysis_config: str) -> None:
+        '''Initialize the Analysis object with the specified configuration file. The configuration file should be a YAML fil'''
         CONFIG_PATHS = ['configs/system_config.yml', 'configs/user_config.yml']
 
         # add the analysis config to the list of paths to load
@@ -30,6 +34,7 @@ class Analysis():
         self.config = config
 
     def load_data(self) -> None:
+        '''Load the data from the specified URL and store it in the data attribute.'''
         print(self.config['figure_title'])
         #print(self.config['nasa_url'])
         #print(self.config['pokemon_url'])
@@ -56,7 +61,7 @@ class Analysis():
         return x[0] 
 
     def compute_analysis(self) -> Any:
-        #print(self.data)
+        '''Compute the analysis on the loaded data and store the result in the analyzed_data attribute.'''
         try:
             df_pokemon = pd.json_normalize(self.data['results'])
             #print(df_pokemon.columns)
@@ -70,6 +75,7 @@ class Analysis():
             return "Error: Could not parse data"
 
     def plot_data(self, save_path: Optional[str] = None) -> plt.Figure:
+        '''Plot the analyzed data and save the figure to the specified path. If no path is specified, save the figure to the current working directory.'''
         fig, ax = plt.subplots()
         ax.scatter(self.analyzed_data['name_code'], self.analyzed_data['count'], color=self.config['color'])
         ax.set_xlabel('Pokemon Fans Starting Letter')
@@ -81,8 +87,15 @@ class Analysis():
         except:
             plt.savefig('Analysis'+ self.config['figure_title']+'.png')
         return fig
-    
-
+ 
     def notify_done(self, message: str) -> None:
-        pass
+        topic = 'JagBrs'
+        title = 'AnalysisStatus'
+        message = 'Plot saved'
+        # send a message through ntfy.sh
+        requests.post(
+        'https://ntfy.sh/' + topic,
+        data=message.encode('utf-8'),
+        headers={'Title': title}
+        )
     
