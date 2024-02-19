@@ -5,7 +5,7 @@ from Analysis import Analysis
 class TestAnalysis(unittest.TestCase):
 
   def setUp(self):
-    self.analysis = Analysis("config.yaml")
+    self.analysis = Analysis("configs/tc_config.yml")
 
   def test_load_data(self):
     # Test that data is loaded successfully
