@@ -9,7 +9,7 @@ authors = [
 ]
 description = "Jag BRS Analysis package"
 version = "0.1.0"
-dependencies = [""]
+dependencies = ["matplotlib", "numpy"]
 requires-python = ">=3.11.0"
 readme = "README.md"
 classifiers = [
