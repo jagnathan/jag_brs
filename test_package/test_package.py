@@ -2,7 +2,7 @@
 #run this file from the root of the repository as test_package/test_package.py
 from Analysis import Analysis
 
-analysis_obj = Analysis('test_package/tc_config.yml')
+analysis_obj = Analysis('configs/tc_config.yml')
 analysis_obj.load_data()
 
 
