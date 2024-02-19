@@ -3,11 +3,11 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = ""
+name = "Analysis"
 authors = [
-    {name = "", email = ""},
+    {name = "Prasanna Jagannathan", email = "noemail@nomail.com"},
 ]
-description = ""
+description = "Jag BRS Analysis package"
 version = "0.1.0"
 dependencies = [""]
 requires-python = ">=3.11.0"
